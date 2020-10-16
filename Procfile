@@ -1,1 +1,0 @@
-web: gunicorn JekyllEditor.wsgi --log-file -
