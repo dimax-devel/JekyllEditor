@@ -6,8 +6,7 @@ from flask_github import GitHub
 
 @app.route('/')
 def index():
-#    return redirect(url_for('login'))
-    return 'test'
+    return redirect(url_for('login'))
 
 @app.route('/login')
 def login():
