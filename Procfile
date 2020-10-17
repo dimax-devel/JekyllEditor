@@ -1,1 +1,1 @@
-web: gunicorn editor:JekyllEditor --log-file=-
+web: gunicorn editor:app --log-file=-
