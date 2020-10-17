@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from editor import app
 from flask import redirect, url_for, render_template
-from flask_github import GITHUB
+#from flask_github import GITHUB
 # github = GitHub(app)
 
 @app.route('/')
