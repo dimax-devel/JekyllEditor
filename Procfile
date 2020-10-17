@@ -1,1 +1,1 @@
-web: gunicorn __init__:JekyllEditor --chdir app --log-file=-
+web: gunicorn editor:JekyllEditor --log-file=-
