@@ -2,7 +2,7 @@
 from editor import app
 from flask import redirect, url_for, render_template
 from flask_github import GitHub
-# github = GitHub(app)
+github = GitHub(app)
 
 @app.route('/')
 def index():
@@ -10,5 +10,11 @@ def index():
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    return github.authorize()
 #    return 'test'
+
+@app.route('/github-callback')
+@github.authorized_handler
+def authorized(oath_token)
+    return render_template('login.html')
+    
