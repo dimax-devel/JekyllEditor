@@ -14,8 +14,9 @@ def index():
         return redirect(url_for('login'))
     else:
 #        return render_template('edit.html')
-        json = github.raw_request('GET', 'https://api.github.com/user', access_token=session['oath_token']).json()
-        return 'hello {0}({1})'.format(json['name'], json['login'])
+        user_json = github.raw_request('GET', 'https://api.github.com/user', access_token=session['oath_token']).json()
+        repo_json = github.raw_request('GET', 'https://api.github.com/{0}/repos'.format(user_json['login'])).json()
+        return 'hello {0}({1})! choose repository{2}'.format(user_json['name'], user_json['login'], repo_json)
 
 @app.route('/login')
 def login():
