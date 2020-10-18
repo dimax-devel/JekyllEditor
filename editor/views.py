@@ -15,6 +15,6 @@ def login():
 
 @app.route('/github-callback')
 @github.authorized_handler
-def authorized(oath_token)
+def authorized(oath_token):
     return render_template('login.html')
     
