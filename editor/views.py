@@ -4,9 +4,9 @@ from editor import app
 from flask import redirect, url_for, render_template
 from flask_github import GitHub
 github = GitHub(app)
+print(os.environ['GITHUB_CLIENT_ID'])
 app.config['GITHUB_CLIENT_ID'] = os.environ['GITHUB_CLIENT_ID']
 app.config['GIHTUB_CLIENT_SECRET'] = os.environ['GITHUB_CLIENT_SECRET']
-print(os.environ['GITHUB_CLIENT_ID'])
 
 @app.route('/')
 def index():
