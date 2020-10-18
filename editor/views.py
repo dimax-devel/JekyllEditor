@@ -1,25 +1,26 @@
 # -*- coding: utf-8 -*-
 import os
 from editor import app
-from flask import redirect, url_for, render_template
+from flask import redirect, url_for, render_template, session
 from flask_github import GitHub
-print(os.environ['GITHUB_CLIENT_ID'])
-print(os.environ['GITHUB_CLIENT_SECRET'])
 app.config['GITHUB_CLIENT_ID'] = os.environ['GITHUB_CLIENT_ID']
 app.config['GITHUB_CLIENT_SECRET'] = os.environ['GITHUB_CLIENT_SECRET']
 github = GitHub(app)
 
 @app.route('/')
 def index():
-    return redirect(url_for('login'))
+    if 'oath_token' not in session:
+        return redirect(url_for('login'))
+    else:
+        return render_template('edit.html')
 
 @app.route('/login')
 def login():
     return github.authorize()
-#    return 'test'
 
 @app.route('/github-callback')
 @github.authorized_handler
 def authorized(oath_token):
-    return render_template('login.html')
+    session['oath_token'] = oath_token
+    return redirect(url_for('/'))
     
