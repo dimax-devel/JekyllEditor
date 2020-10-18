@@ -13,7 +13,8 @@ def index():
     if 'oath_token' not in session:
         return redirect(url_for('login'))
     else:
-        return render_template('edit.html')
+#        return render_template('edit.html')
+        return session['oath_token']
 
 @app.route('/login')
 def login():
