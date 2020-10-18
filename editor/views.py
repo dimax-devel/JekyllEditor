@@ -14,7 +14,8 @@ def index():
         return redirect(url_for('login'))
     else:
 #        return render_template('edit.html')
-        return github.raw_request('GET', 'https://api.github.com/user', access_token=session['oath_token']).json()
+        json = github.raw_request('GET', 'https://api.github.com/user', access_token=session['oath_token']).json()
+        return 'hello {0}({1})'.format(json['name'], json['login'])
 
 @app.route('/login')
 def login():
