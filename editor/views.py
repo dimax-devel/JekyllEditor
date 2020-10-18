@@ -6,6 +6,7 @@ from flask_github import GitHub
 github = GitHub(app)
 app.config['GITHUB_CLIENT_ID'] = os.environ['GITHUB_CLIENT_ID']
 app.config['GIHTUB_CLIENT_SECRET'] = os.environ['GITHUB_CLIENT_SECRET']
+print(os.environ['GITHUB_CLIENT_ID'])
 
 @app.route('/')
 def index():
