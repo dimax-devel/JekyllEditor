@@ -23,5 +23,5 @@ def login():
 @github.authorized_handler
 def authorized(oath_token):
     session['oath_token'] = oath_token
-    return redirect(url_for('/'))
+    return redirect(url_for('index'))
     
