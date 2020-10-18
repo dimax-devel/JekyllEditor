@@ -10,5 +10,5 @@ def index():
 
 @app.route('/login')
 def login():
-#    return render_template('login.html')
-    return 'test'
+    return render_template('login.html')
+#    return 'test'
