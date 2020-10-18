@@ -1,1 +1,1 @@
-web: gunicorn editor:app --log-file=- --chdir editor
+web: gunicorn editor:app --log-file=-
