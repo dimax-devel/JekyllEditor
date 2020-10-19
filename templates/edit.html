@@ -2,18 +2,25 @@
 {% block content %}
 <div class="container">
   <h1>Hello, {{ uname }}</h1>
-  <div class="form-group">
+  <div class="form-group row">
     <label for="select-repo">Select Repo</label>
     <select id="select-repo" class="form-control">
       {% for r in repos %}
       <option>{{ r }}</option>
       {% endfor %}
     </select>
-    <div class="form-group">
-      <input class="form-control" type="text" placeholder="title" id="title">
-      <input class="form-control" type="text" placeholder="categories" id="categories">
-      <textarea class="form-control" id="post-contents" rows="20"></textarea>
-    </div>
+  </div>
+  <div class="form-group row">
+    <label for="title">Title</label>
+    <input class="form-control" type="text" placeholder="title" id="title">
+  </div>
+  <div class="form-group row">
+    <label for="categories">Categories</label>
+    <input class="form-control" type="text" placeholder="categories" id="categories">
+  </div>
+  <div class="form-group row">
+    <label for="post-contents">Post Contens</label>
+    <textarea class="form-control" id="post-contents" rows="20"></textarea>
   </div>
 </div>
 {% endblock %}
