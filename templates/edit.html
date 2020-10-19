@@ -1,5 +1,12 @@
-<html>
-  <body>
-    test
-  </body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<h1>Hello, {{ uname }}</h1>
+<div class="form-group">
+  <label for="select-repo">Select Repo</label>
+  <select id="select-repo" class="form-control">
+    {% for r in repos %}
+    <option>{{ r }}</option>
+    {% endfor %}
+  </select>
+</div>
+{% endblock %}
