@@ -34,7 +34,7 @@ def post():
     input = request.form
     uname = str(input['user-name'])
 #    token = str(input['auth-token'])
-    repo = str(input['select-repo'])
+#    repo = str(input['select-repo'])
     title = str(input['title'])
     categories = str(input['categories'])
     post_contents = str(input['post-contents'])
