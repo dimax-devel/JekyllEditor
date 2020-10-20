@@ -29,3 +29,7 @@ def authorized(oath_token):
     session['oath_token'] = oath_token
     return redirect(url_for('index'))
     
+@app.route('/post', methods = ['POST'])
+def post():
+    input = result.form
+    return str(input["title"]) + str(input["categories"]) + 
