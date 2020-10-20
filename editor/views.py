@@ -31,7 +31,7 @@ def authorized(oath_token):
     
 @app.route('/post', methods = ['POST'])
 def post():
-#    input = request.form
+    input = request.form
 #    uname = str(input["user-name"])
 #    token = session['oath_token']
 #    repo = str(input["select-repo"])
