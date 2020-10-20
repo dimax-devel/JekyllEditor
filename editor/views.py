@@ -31,8 +31,8 @@ def authorized(oath_token):
     
 @app.route('/post', methods = ['POST'])
 def post():
-    input = request.form
-    uname = str(input["user-name"])
+#    input = request.form
+#    uname = str(input["user-name"])
 #    token = session['oath_token']
 #    repo = str(input["select-repo"])
 #    title = str(input["title"])
@@ -49,7 +49,7 @@ def post():
 #    status = github.raw_request('PATCH', 'https://api.github.com/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), access_token=token, kwargs={'headers':{'sha':new_commit_sha}})
 #    return redirect(url_for('posted'), sts=status)
 #    return status
-    return title
+    return 'test'
 
 @app.route('/posted')
 def posted(sts):
