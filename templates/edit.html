@@ -18,9 +18,9 @@
     <div class="form-group row">
       <label for="select-repo" class="col-sm-2 col-form-label">Select Repo</label>
       <div class="col-sm-10">
-	<select class="form-control" id="select-repo" name="selet-repo">
+	<select class="form-control" id="select-repo" name="select-repo">
 	  {% for r in repos %}
-	  <option>{{ r }}</option>
+	  <option value={{ r }}>{{ r }}</option>
 	  {% endfor %}
 	</select>
       </div>
