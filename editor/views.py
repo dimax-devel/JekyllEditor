@@ -32,4 +32,4 @@ def authorized(oath_token):
 @app.route('/post', methods = ['POST'])
 def post():
     input = result.form
-    return str(input["title"]) + str(input["categories"]) + 
+    return str(input["title"]) + str(input["categories"]) + str(input["post-contents"])
