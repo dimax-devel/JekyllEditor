@@ -17,8 +17,7 @@ def index():
         token = session['oath_token']
         user_json = github.raw_request('GET', 'https://api.github.com/user', access_token=token).json()
         repo_json = github.raw_request('GET', 'https://api.github.com/user/repos', access_token=token).json()
-        session['uname'] = user_json['name']
-        return render_template('edit.html', uname=session['uname'], repos=[d.get('name') for d in repo_json])
+        return render_template('edit.html', uname=user_json['name'], repos=[d.get('name') for d in repo_json])
 
 @app.route('/login')
 def login():
@@ -33,7 +32,7 @@ def authorized(oath_token):
 @app.route('/post', methods = ['POST'])
 def post():
     input = request.form
-    uname = session['uname']
+    uname = str(input["user-name"])
     token = session['oath_token']
     repo = str(input["select-repo"])
     title = str(input["title"])
