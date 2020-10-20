@@ -18,7 +18,7 @@ def index():
         user_json = github.raw_request('GET', 'https://api.github.com/user', access_token=token).json()
         repo_json = github.raw_request('GET', 'https://api.github.com/user/repos', access_token=token).json()
         session['uname'] = user_json['name']
-        return render_template('edit.html', uname=user_json['name'], repos=[d.get('name') for d in repo_json])
+        return render_template('edit.html', uname=session['uname'], repos=[d.get('name') for d in repo_json])
 
 @app.route('/login')
 def login():
