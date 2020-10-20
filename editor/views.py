@@ -47,7 +47,7 @@ def post():
     now = datetime.now()
     tree_sha = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/trees', access_token=token, kwargs={'headers':{'base_tree':commit_tree_sha, 'tree':{'path':'_post/{0:%Y%m%d%H%M%S}.md'.format(now), 'mode':'100644', 'type':'blob', 'sha':blob_sha}}})
     new_commit_sha = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/commits'.format(uname, repo), access_token=token, kwargs={'headers':{'message':'new post:{0:%Y/%m/%d %H:%M:%S}'.format(now), 'parents':[commit_sha], 'tree':tree_sha}})
-    status = github.raw_request('PATCH', 'https://api.github.com/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), access_token=token, kwargs={'headers':{'sha':new_commit_sha})
+    status = github.raw_request('PATCH', 'https://api.github.com/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), access_token=token, kwargs={'headers':{'sha':new_commit_sha}})
     return redirect(url_for('posted'), sts=status)
 
 @app.route('/posted')
