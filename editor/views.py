@@ -33,11 +33,17 @@ def authorized(oath_token):
 def post():
     input = request.form
     uname = str(input['user-name'])
+    print(uname)
     token = str(input['auth-token'])
+    print(token)
     repo = str(input['select-repo'])
+    print(repo)
     title = str(input['title'])
+    print(title)
     categories = str(input['categories'])
+    print(categories)
     post_contents = str(input['post-contents'])
+    print(post_contents)
     ref_result = github.raw_request('GET', 'https://api.github.com/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), access_token=token)
     print(ref_result.status_code)
     return str(ref_result.status_code)
