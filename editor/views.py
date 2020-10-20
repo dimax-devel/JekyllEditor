@@ -38,12 +38,12 @@ def post():
     repo = str(input["select-repo"])
     title = str(input["title"])
     categories = str(input["categories"])
-    post-contents = str(input["post-contents"])
+    post_contents = str(input["post-contents"])
     ref_object_sha = github.raw_request('GET', 'https://api.github.com/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), access_token=token)['object']['sha']
     commit_json = github.raw_request('GET', 'https://api.github.com/repos/{0}/{1}/git/commits/{2}'.format(uname, repo, ref_object_sha), access_token=token)
     commit_sha = commit_json['sha']
     commit_tree_sha = commit_json['tree']['sha']
-    blob_sha = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/blobs'.format(uname, repo), access_token=token, kwargs={'headers':{'content':post-contents}})['sha']
+    blob_sha = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/blobs'.format(uname, repo), access_token=token, kwargs={'headers':{'content':post_contents}})['sha']
     now = datetime.now()
     tree_sha = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/trees', access_token=token, kwargs={'headers':{'base_tree':commit_tree_sha, 'tree':{'path':'_post/{0:%Y%m%d%H%M%S}.md'.format(now), 'mode':'100644', 'type':'blob', 'sha':blob_sha}}})
     new_commit_sha = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/commits'.format(uname, repo), access_token=token, kwargs={'headers':{'message':'new post:{0:%Y/%m/%d %H:%M:%S}'.format(now), 'parents':[commit_sha], 'tree':tree_sha}})
