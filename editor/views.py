@@ -38,9 +38,9 @@ def post():
     title = str(input['title'])
     categories = str(input['categories'])
     post_contents = str(input['post-contents'])
-#    ref_object_sha = github.raw_request('GET', 'https://api.github.com/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), access_token=token)['object']['sha']
-#    commit_json = github.raw_request('GET', 'https://api.github.com/repos/{0}/{1}/git/commits/{2}'.format(uname, repo, ref_object_sha), access_token=token)
-#    commit_sha = commit_json['sha']
+    ref_object_sha = github.raw_request('GET', 'https://api.github.com/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), access_token=token)['object']['sha']
+    commit_json = github.raw_request('GET', 'https://api.github.com/repos/{0}/{1}/git/commits/{2}'.format(uname, repo, ref_object_sha), access_token=token)
+    commit_sha = commit_json['sha']
 #    commit_tree_sha = commit_json['tree']['sha']
 #    blob_sha = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/blobs'.format(uname, repo), access_token=token, kwargs={'headers':{'content':post_contents}})['sha']
 #    now = datetime.now()
