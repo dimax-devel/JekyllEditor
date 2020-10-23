@@ -73,4 +73,5 @@ def http_request(method, path, token, data=None):
     else:
         return None
     print(res.status_code)
+    print(res.json())
     return res.json()
