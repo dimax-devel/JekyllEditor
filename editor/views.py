@@ -41,7 +41,7 @@ def post():
     post_contents = str(input['post-contents'])
     ref_json = http_request('GET', '/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), token)
     ref_object_sha = ref_json['object']['sha']
-    commit_json = https_request('GET', '/repos/{0}/{1}/git/commits/{2}'.format(uname, repo, ref_object_sha), token)
+    commit_json = http_request('GET', '/repos/{0}/{1}/git/commits/{2}'.format(uname, repo, ref_object_sha), token)
     commit_sha = commit_json['sha']
     commit_tree_sha = commit_json['tree']['sha']
     blob_result = http_request('POST', '/repos/{0}/{1}/git/blobs'.format(uname, repo), token, {'content':post_contents})
