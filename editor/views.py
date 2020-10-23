@@ -60,7 +60,7 @@ def posted(sts):
 
 def http_request(method, path, token, data=None):
     url = 'https://api.github.com{0}'.format(path)
-    auth_header = {Authorization: 'token {0}'.format(token)}
+    auth_header = {'Authorization': 'token {0}'.format(token)}
     if method == 'GET':
         print('GET {0}', url)
         res = requests.get(url, headers=auth_header)
