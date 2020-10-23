@@ -72,5 +72,5 @@ def http_request(method, path, token, data=None):
     else:
         return None
     print(res.status_code)
-    session['status'] = status_code
+    session['status'] = res.status_code
     return res.json()
