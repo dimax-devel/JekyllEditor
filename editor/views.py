@@ -17,7 +17,7 @@ def index():
         token = session['oath_token']
         user_json = github.raw_request('GET', 'https://api.github.com/user', access_token=token).json()
         repo_json = github.raw_request('GET', 'https://api.github.com/user/repos', access_token=token).json()
-        return render_template('edit.html', uname=user_json['login'], auth_token=token, repos=[d.get('name') for d in repo_json])
+        return render_template('edit.html', uname=user_json['login'], repos=[d.get('name') for d in repo_json])
 
 @app.route('/login')
 def login():
