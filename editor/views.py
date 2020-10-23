@@ -51,11 +51,11 @@ def post():
     commit_json = github.raw_request('GET', 'https://api.github.com/repos/{0}/{1}/git/commits/{2}'.format(uname, repo, ref_object_sha), access_token=token).json()
     commit_sha = commit_json['sha']
     commit_tree_sha = commit_json['tree']['sha']
-    blob_sha = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/blobs'.format(uname, repo), access_token=token, kwargs={'headers':{'content':post_contents}}).json()['sha']
+    blob_sha = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/blobs'.format(uname, repo), access_token=token, headers='content':post_contents}).json()['sha']
     now = datetime.now()
     tree_sha = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/trees', access_token=token, kwargs={'headers':{'base_tree':commit_tree_sha, 'tree':{'path':'_post/{0:%Y%m%d%H%M%S}.md'.format(now), 'mode':'100644', 'type':'blob', 'sha':blob_sha}}}).json()['sha']
-    new_commit_sha = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/commits'.format(uname, repo), access_token=token, kwargs={'headers':{'message':'new post:{0:%Y/%m/%d %H:%M:%S}'.format(now), 'parents':[commit_sha], 'tree':tree_sha}}).json()['sha']
-    status = github.raw_request('PATCH', 'https://api.github.com/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), access_token=token, kwargs={'headers':{'sha':new_commit_sha}}).status_code
+    new_commit_sha = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/commits'.format(uname, repo), access_token=token, headers='message':'new post:{0:%Y/%m/%d %H:%M:%S}'.format(now), 'parents':[commit_sha], 'tree':tree_sha}).json()['sha']
+    status = github.raw_request('PATCH', 'https://api.github.com/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), access_token=token, headers='sha':new_commit_sha}).status_code
 #    return redirect(url_for('posted'), sts=status)
 #    return status
     return 'test'
