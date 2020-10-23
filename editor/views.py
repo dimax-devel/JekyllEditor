@@ -67,10 +67,10 @@ def request(method, path, token, data=None):
     if method == 'GET':
         print('GET {0}', url)
         res = requests.get(url, headers=auth_header)
-    else if method == 'POST':
+    elif method == 'POST':
         print('POST {0}', url)
         res = requests.post(url, headers=auth_header, json=data)
-    else if method == 'PATCH':
+    elif method == 'PATCH':
         print('PATCH {0}', url)
         res = requests.patch(url, headers=auth_header, json=data)
     else:
