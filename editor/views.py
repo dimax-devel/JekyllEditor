@@ -55,7 +55,7 @@ def post():
 
 @app.route('/posted')
 def posted():
-    return render_template('posted.html', status=str(session['status']))
+    return render_template('posted.html')
 
 def http_request(method, path, token, data=None):
     url = 'https://api.github.com{0}'.format(path)
@@ -72,5 +72,4 @@ def http_request(method, path, token, data=None):
     else:
         return None
     print(res.status_code)
-    session['status'] = res.status_code
     return res.json()
