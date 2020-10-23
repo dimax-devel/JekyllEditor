@@ -39,20 +39,17 @@ def post():
     title = str(input['title'])
     categories = str(input['categories'])
     post_contents = str(input['post-contents'])
-    ref_json = http_request('GET', '/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), token)
-    ref_object_sha = ref_json['object']['sha']
+    ref_object_sha = http_request('GET', '/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), token)['object']['sha']
     commit_json = http_request('GET', '/repos/{0}/{1}/git/commits/{2}'.format(uname, repo, ref_object_sha), token)
     commit_sha = commit_json['sha']
     commit_tree_sha = commit_json['tree']['sha']
     blob_result = http_request('POST', '/repos/{0}/{1}/git/blobs'.format(uname, repo), token, {'content':post_contents})
     blob_sha = blob_result['sha']
     now = datetime.now()
-    tree_sha = http_request('POST', '/repos/{0}/{1}/git/trees'.format(uname, repo), token, {'tree':[{'path':'_post/{0:%Y%m%d%H%M%S}.md'.format(now), 'mode':'100644', 'type':'blob', 'sha':blob_sha}]})['sha']
+    tree_sha = http_request('POST', '/repos/{0}/{1}/git/trees'.format(uname, repo), token, {'base_tree':commit_tree_sha, 'tree':[{'path':'_post/{0:%Y%m%d%H%M%S}.md'.format(now), 'mode':'100644', 'type':'blob', 'sha':blob_sha}]})['sha']
     new_commit_sha = http_request('POST', '/repos/{0}/{1}/git/commits'.format(uname, repo), token, {'message':'new post:{0:%Y/%m/%d %H:%M:%S}'.format(now), 'parents':[commit_sha], 'tree':tree_sha})['sha']
     http_request('PATCH', '/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), token, {'sha':new_commit_sha})
-#    return redirect(url_for('posted'), sts=status)
-#    return status
-    return 'test'
+    return redirect(url_for('posted'), sts=status)
 
 @app.route('/posted')
 def posted(sts):
@@ -61,7 +58,6 @@ def posted(sts):
 def http_request(method, path, token, data=None):
     url = 'https://api.github.com{0}'.format(path)
     auth_header = {'Authorization': 'token {0}'.format(token)}
-    print(data)
     if method == 'GET':
         print('GET {0}', url)
         res = requests.get(url, headers=auth_header)
@@ -74,5 +70,4 @@ def http_request(method, path, token, data=None):
     else:
         return None
     print(res.status_code)
-    print(res.json())
     return res.json()
