@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import json
 import requests
 from editor import app
 from flask import redirect, url_for, render_template, session, request
@@ -49,7 +50,7 @@ def post():
     tree_sha = http_request('POST', '/repos/{0}/{1}/git/trees'.format(uname, repo), token, {'base_tree':commit_tree_sha, 'tree':[{'path':'_posts/{0:%Y%m%d%H%M%S}.md'.format(now), 'mode':'100644', 'type':'blob', 'sha':blob_sha}]})['sha']
     new_commit_sha = http_request('POST', '/repos/{0}/{1}/git/commits'.format(uname, repo), token, {'message':'new post:{0:%Y/%m/%d %H:%M:%S}'.format(now), 'parents':[commit_sha], 'tree':tree_sha})['sha']
     res = http_request('PATCH', '/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), token, {'sha':new_commit_sha})
-    return redirect(url_for('posted'), sts=res)
+    return redirect(url_for('posted'), sts=json.dump(res))
 
 @app.route('/posted')
 def posted(sts):
