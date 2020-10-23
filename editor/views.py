@@ -50,7 +50,7 @@ def post():
     commit_json = github.raw_request('GET', 'https://api.github.com/repos/{0}/{1}/git/commits/{2}'.format(uname, repo, ref_object_sha), access_token=token).json()
     commit_sha = commit_json['sha']
     commit_tree_sha = commit_json['tree']['sha']
-    blob_result = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/blobs'.format(uname, repo), token, content=post_contents)
+    blob_result = github.raw_request('POST', 'https://api.github.com/repos/{0}/{1}/git/blobs'.format(uname, repo), token, data={"content":post_contents}))
     print(blob_result.status_code)
     print(blob_result.json())
     blob_sha = blob_result.json()['sha']
