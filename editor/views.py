@@ -5,7 +5,7 @@ import requests
 from editor import app
 from flask import redirect, url_for, render_template, session, request
 from flask_github import GitHub
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 app.config['GITHUB_CLIENT_ID'] = os.environ['GITHUB_CLIENT_ID']
 app.config['GITHUB_CLIENT_SECRET'] = os.environ['GITHUB_CLIENT_SECRET']
 app.secret_key = os.urandom(16)
@@ -40,7 +40,8 @@ def post():
     title = str(input['title'])
     categories = str(input['categories'])
     post_contents = str(input['post-contents'])
-    now = datetime.now()
+    jst = timezone(timedelta(hours=+9), 'JST')
+    now = datetime.now(jst)
     ref_object_sha = http_request('GET', '/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), token)['object']['sha']
     commit_json = http_request('GET', '/repos/{0}/{1}/git/commits/{2}'.format(uname, repo, ref_object_sha), token)
     commit_sha = commit_json['sha']
@@ -54,7 +55,7 @@ def post():
 
 @app.route('/posted')
 def posted():
-    return render_template('posted.html', status=session['res'].status_code)
+    return render_template('posted.html', status=str(session['status']))
 
 def http_request(method, path, token, data=None):
     url = 'https://api.github.com{0}'.format(path)
@@ -71,5 +72,5 @@ def http_request(method, path, token, data=None):
     else:
         return None
     print(res.status_code)
-    session['res'] = res
+    session['status'] = status_code
     return res.json()
