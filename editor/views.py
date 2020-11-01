@@ -54,7 +54,7 @@ def post():
         res = http_request('PATCH', '/repos/{0}/{1}/git/refs/heads/master'.format(uname, repo), token, {'sha':new_commit_sha})
         return redirect(url_for('posted'))
     except KeyError as instance:
-        print instance
+        print(instance)
         return redirect(url_for('error'))
 
 @app.route('/posted')
