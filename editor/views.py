@@ -71,5 +71,7 @@ def http_request(method, path, token, data=None):
         res = requests.patch(url, headers=auth_header, json=data)
     else:
         return None
+    print(url)
     print(res.status_code)
+    print(res.text)
     return res.json()
